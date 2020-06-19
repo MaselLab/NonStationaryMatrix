@@ -7,7 +7,7 @@ Steps:
 	Output: an unrooted maxmimum likelihood domain tree.
 
 2. Notung to root the output tree from RAxML
-	There are no scripts for this step! Notung uses batch processing to deal with a large amount of files at once.
+	The script currently does not call Notung; rather, it prepares file for Notung batch processing.
 	See the Notung manual for how to do this step.
 
 3. TreeFix to reconcile a domain tree with a species tree.
