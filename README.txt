@@ -17,3 +17,5 @@ Steps:
 4. Luke Kim's scripts to date the reconciled domain tree.
 	Input: Reconciled rooted domain tree, dated species tree, and a multiple sequence alignment.
 	Output: Reconciled rooted domain tree with branch lengths.
+
+Several extra scripts are in the main directory. For what these do, please refer to the header for each script.
