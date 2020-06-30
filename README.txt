@@ -1,15 +1,18 @@
-The purpose of the pipeline is to infer a substitution matrix using reconciled domain trees. To infer the best substitution matrix, we
-need accurate evolutionary histories. Highly diverged sequences are suboptimal for obtaining accurate histories, as far more changes
-have occurred than can be observed. We are better off using highly conserved sequences, and therefore we use protein domains. Species
-tree information is also known to improve gene tree inference, so we reconcile our domain trees with the TimeTree-derived species tree.
-Reconciled domain trees should yield the most accurate evolutionary histories, and thus are the best choice for matrix inference.
+The purpose of the pipeline is to infer a substitution matrix using reconciled domain trees. To infer the best
+substitution matrix, we need accurate evolutionary histories. Highly diverged sequences are suboptimal for
+obtaining accurate histories, as far more changes have occurred than can be observed. We are better off using
+highly conserved sequences, and therefore we use protein domains. Species tree information is also known to
+improve gene tree inference, so we reconcile our domain trees with the TimeTree-derived species tree.
+Reconciled domain trees should yield the most accurate evolutionary histories, and thus are the best choice
+for matrix inference.
 
-In order to make trees, we first need alignments. These were generated from annotated Pfam domains using Clustal Omega. The alignmets,
-along with a starting matrix (we used JTT+G), are run through RAxML to obtain initial, un-reconciled and unrooted domain trees. Unrooted
-trees cannot be reconciled with the species tree, so we first root the initial domain trees using Notung, and then use TreeFix to
-reconcile the rooted domain tree with the TimeTree-derived species tree. TreeFix only returns topology, but to infer a matrix, we need
-branch lengths. To obtain branch lengths, we use Luke Kim's scripts. Reconciled domain trees with branch lengths are then used for matrix
-inference.
+In order to make trees, we first need alignments. These were generated from annotated Pfam domains using
+Clustal Omega. The alignmets, along with a starting matrix (we used JTT+G), are run through RAxML to obtain
+initial, un-reconciled and unrooted domain trees. Unrooted trees cannot be reconciled with the species tree,
+so we first root the initial domain trees using Notung, and then use TreeFix to reconcile the rooted domain
+tree with the TimeTree-derived species tree. TreeFix only returns topology, but to infer a matrix, we need
+branch lengths. To obtain branch lengths, we use Luke Kim's scripts. Reconciled domain trees with branch
+lengths are then used for matrix inference.
 
 See each step for input/output and other details. For more information, refer to the scripts themselves,
 as they each contain comments explaining what they do and what their settings are.
