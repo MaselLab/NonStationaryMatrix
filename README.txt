@@ -46,4 +46,4 @@ Several extra scripts are in the main directory. For what these do, please refer
 TO DO LIST:
 Add a script/lines of code to exclude methionines at the start of the amino acid sequence. We should not be
 inferring anything about the first methionine of the protein, and currently there is no check to see if
-the first amino acid of an alignment is the first metnionine of a sequence.
+the first amino acid of an alignment is the first metnionine of a protein.
