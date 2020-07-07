@@ -42,3 +42,8 @@ as they each contain comments explaining what they do and what their settings ar
 The relevant scripts can be found in the associated folders (e.g. the "RAxML_scripts" folder contains raxml_parallel.R).
 
 Several extra scripts are in the main directory. For what these do, please refer to the header for each script.
+
+TO DO LIST:
+Add a script/lines of code to exclude methionines at the start of the amino acid sequence. We should not be
+inferring anything about the first methionine of the protein, and currently there is no check to see if
+the first amino acid of an alignment is the first metnionine of a sequence.
