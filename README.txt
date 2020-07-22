@@ -47,3 +47,6 @@ TO DO LIST:
 Add a script/lines of code to exclude methionines at the start of the amino acid sequence. We should not be
 inferring anything about the first methionine of the protein, and currently there is no check to see if
 the first amino acid of an alignment is the first metnionine of a protein.
+
+Determine how badly RAxML scales with number of sites. It appears to scale approximately linearly with
+number of species, but a large number of species + a large number of sites results in very slow run times.
