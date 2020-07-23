@@ -31,7 +31,8 @@ as they each contain comments explaining what they do and what their settings ar
 
 3. TreeFix to reconcile a domain tree with a species tree using the treefix_parallel.R script.
 	Purpose: Improve domain tree topology by reconciling it with the TimeTree-derived species tree.
-	Input: Rooted domain tree, a matrix (same as used by RAxML, usually JTT+G), and a species tree.
+	Input: Rooted domain tree, a matrix (same as used by RAxML, usually JTT+G), the original alignment,
+	       and a species tree.
 	Output: Reconciled rooted domain tree.
 
 4. Luke Kim's scripts to date the reconciled domain tree. The main script is "TreeCombinator.py".
