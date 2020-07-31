@@ -58,12 +58,20 @@ raxml.call <- function(pfam, pfam.table = pfam.summary){
 }
 
 # Subset the data. This command ensures RAxML is only run on the alignments that meet the
-# size requirements. Note that these requirements are separate, and one may be commented out.
-# Max and min sequences should always be used, and max and min sites should only be
-# needed when running RAxML on alignments with large numbers of sequences.
+# are in the directory. The commented out text is if you want to run files that meet size
+# requirements (just make sure all of these are in the directory you're pulling from.
+
+# The following three lines are for getting the PFAM IDs from the directory you want.
+# Comment these out if you are using size requirements instead.
+library(stringr)
+files.dir <- list.files(path = pfam.dir, pattern = "PF")
+pfam.ids.dir <- str_match(string = files.dir, pattern = "PF[0-9]+")
+
 pfam.subset <- pfam.summary[
-  pfam.summary[, seqs.col] > min.seqs & pfam.summary[, seqs.col] <= max.seqs
+  # The following two lines are if you are subsetting based on size requirements.
+  #pfam.summary[, seqs.col] > min.seqs & pfam.summary[, seqs.col] <= max.seqs
   #& pfam.summary[, sites.col] > min.sites & pfam.summary[, sites.col] <= max.sites
+  pfam.col %in% pfam.ids.dir
   ,
   pfam.col]
 #print(pfam.subset)
