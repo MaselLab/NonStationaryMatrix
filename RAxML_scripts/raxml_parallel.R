@@ -32,6 +32,7 @@ out.pfam.summary.name <- "/extra/ljkosinski/Alignments/pfam_summary_update_9-13-
 max.seqs <- 300 # Used for subsetting the data. Running RAxML on everything will take way too long!
 #max.sites <- 100 # Used for subsetting the data.
 min.seqs <- 200 # Used for subsetting the data.
+subset.method <- "dir" # Set to 'dir' to use only the Pfams in pfam.dir, and set to 'seq' to use only Pfams that meet the number of sequence requirements.
 #min.sites <- 10 # Used for subsetting the data.
 
 # Load Pfam summary data, which will be updated with run times.
@@ -60,21 +61,23 @@ raxml.call <- function(pfam, pfam.table = pfam.summary){
 # Subset the data. This command ensures RAxML is only run on the alignments that meet the
 # are in the directory. The commented out text is if you want to run files that meet size
 # requirements (just make sure all of these are in the directory you're pulling from.
-
-# The following three lines are for getting the PFAM IDs from the directory you want.
-# Comment these out if you are using size requirements instead.
-library(stringr)
-files.dir <- list.files(path = pfam.dir, pattern = "PF")
-pfam.ids.dir <- str_match(string = files.dir, pattern = "PF[0-9]+")
-
-pfam.subset <- pfam.summary[
-  # The following two lines are if you are subsetting based on size requirements.
-  #pfam.summary[, seqs.col] > min.seqs & pfam.summary[, seqs.col] <= max.seqs
-  #& pfam.summary[, sites.col] > min.sites & pfam.summary[, sites.col] <= max.sites
-  pfam.col %in% pfam.ids.dir
-  ,
-  pfam.col]
-#print(pfam.subset)
+pfam.subset <- NA
+if (subset.method == "dir"){
+  library(stringr)
+  files.dir <- list.files(path = pfam.dir, pattern = "PF")
+  pfam.subset <- str_match(string = files.dir, pattern = "PF[0-9]+")
+  pfam.subset <- unique(pfam.subset)
+} else if (subset.method == "seq") {
+  pfam.subset <- pfam.summary[
+    # To include number of sites, uncomment the second line.
+    pfam.summary[, seqs.col] > min.seqs & pfam.summary[, seqs.col] <= max.seqs
+    #& pfam.summary[, sites.col] > min.sites & pfam.summary[, sites.col] <= max.sites
+    ,
+    pfam.col]
+  #print(pfam.subset)
+} else {
+  print("Error. Subset not set correctly.")
+}
 
 # Set random seed for reproducible results.
 set.seed(25)
