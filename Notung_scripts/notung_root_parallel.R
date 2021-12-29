@@ -7,11 +7,10 @@
 # Just need to make a batch file for rooting. No parallel call in R is needed!
 # First line needs to be the species tree, and then the next lines need to be
 # the correct RAxML tree to root.
-todays.date <- "10-7-19"
-folder.name <- "Pfam300"
-output.name <- paste("/extra/ljkosinski/Rooted/raxml_", folder.name, "_", todays.date, ".batch", sep = "")
-species.tree <- "/extra/ljkosinski/Trees/SpeciesTree.nwk" # Location of the species tree.
-raxml.trees.folder <- paste("/extra/ljkosinski/Trees/", folder.name, "/JTT_G/", sep = "") # Location of the RAxML domain trees.
+todays.date <- "07-30-20"
+output.name <- paste("/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/RootedTrees/raxml_", todays.date, ".batch", sep = "")
+species.tree <- "/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/UnrootedTrees/SpeciesTree.nwk" # Location of the species tree.
+raxml.trees.folder <- "/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/UnrootedTrees/" # Location of the RAxML domain trees.
 
 # Get RAxML files from directory.
 raxml.files <- list.files(raxml.trees.folder)

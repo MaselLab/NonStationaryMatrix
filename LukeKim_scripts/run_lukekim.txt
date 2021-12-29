@@ -1,0 +1,13 @@
+###========================================
+#!/bin/bash
+
+#PBS -q windfall
+#PBS -l select=1:ncpus=28:mem=168gb:pcmem=6gb
+#PBS -N lukekim_script_test
+#PBS -W group_list=masel
+#PBS -l place=pack:shared
+#PBS -l walltime=96:00:00
+#PBS -j oe
+
+cd /home/u8/anhnguyenphung/Pipeline/LukeKim_scripts/
+python /home/u8/anhnguyenphung/Pipeline/LukeKim_scripts/process_multiple_trees.py

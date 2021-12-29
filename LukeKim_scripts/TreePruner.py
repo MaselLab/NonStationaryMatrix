@@ -1,5 +1,5 @@
 from ete3 import Tree
-from Bio import Phylo
+from bio import Phylo
 class TreePruner:
     def __init__(self, tree_name, format):
         self.tree = Tree(tree_name, format)

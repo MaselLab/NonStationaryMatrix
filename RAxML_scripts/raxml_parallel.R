@@ -19,27 +19,28 @@ library(parallel)
 # Global variables. The RAxML settings and size requirements are here. See the comment after
 # each variable for a description of each of these settings.
 pfam.col <- "PfamUID" # Name of the PfamUID column in the Pfam summary data.
-pfam.dir <- "/extra/ljkosinski/Alignments/Pfam300/" # Directory of all the pfam.fasta files.
+pfam.dir <- "/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/Alignments/" # Directory of all the pfam.fasta files.
 seqs.col <- "Sequences" # Name of the run time column in the Pfam summary data.
 sites.col <- "Sites" # Name of the sites columnin the Pfam summary data.
-raxml.cmd <- "/home/u31/ljkosinski/bin/standard-RAxML/raxmlHPC-AVX" # location of the RAxML command.
+raxml.cmd <- "/home/u8/anhnguyenphung/Pipeline/standard-RAxML/raxmlHPC-AVX" # location of the RAxML command.
 raxml.model <- "PROTGAMMAJTT" # The model to be used by RAxML with -m.
 raxml.alg <- "a" # The algorithm RAxML will use with -f.
 raxml.seed <- "555" # Random seed used by RAxML with -x and -p.
 raxml.boot <- "100" # Number of bootstrap replicates with -N.
 out.folder <- "" # Output folder location for RAxML to save files in.
-out.pfam.summary.name <- "/extra/ljkosinski/Alignments/pfam_summary_update_9-13-19_seqs_201-300.tsv" # Name of the updated pfam summary file to save.
+out.pfam.summary.name <- "/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/summary_RAxML.tsv" # Name of the updated pfam summary file to save.
 max.seqs <- 300 # Used for subsetting the data. Running RAxML on everything will take way too long!
 #max.sites <- 100 # Used for subsetting the data.
 min.seqs <- 200 # Used for subsetting the data.
+subset.method <- "dir" # Set to 'dir' to use only the Pfams in pfam.dir, and set to 'seq' to use only Pfams that meet the number of sequence requirements.
 #min.sites <- 10 # Used for subsetting the data.
 
 # Load Pfam summary data, which will be updated with run times.
 # Note that there are two options here. One is a tsv file, and the other is an R data space.
 # Use whichever has the most up-to-date Pfam summary.
-#pfam.summary <- read.table(file = "/extra/ljkosinski/Alignments/pfam_summary.tsv",
+#pfam.summary <- read.table(file = "pfam_summary_pipeline.tsv",
 #                           header = T, sep = "\t")
-load("/extra/ljkosinski/Scripts/RateShift/pfam_summary_9-13-19.RData")
+load("/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/pfam_summary_9-13-19.RData")
 
 # RAxML call function. Print commands are useful for debugging, but should be commented out
 # before running on a large data set to save time.
@@ -58,15 +59,25 @@ raxml.call <- function(pfam, pfam.table = pfam.summary){
 }
 
 # Subset the data. This command ensures RAxML is only run on the alignments that meet the
-# size requirements. Note that these requirements are separate, and one may be commented out.
-# Max and min sequences should always be used, and max and min sites should only be
-# needed when running RAxML on alignments with large numbers of sequences.
-pfam.subset <- pfam.summary[
-  pfam.summary[, seqs.col] > min.seqs & pfam.summary[, seqs.col] <= max.seqs
-  #& pfam.summary[, sites.col] > min.sites & pfam.summary[, sites.col] <= max.sites
-  ,
-  pfam.col]
-#print(pfam.subset)
+# are in the directory. The commented out text is if you want to run files that meet size
+# requirements (just make sure all of these are in the directory you're pulling from.
+pfam.subset <- NA
+if (subset.method == "dir"){
+  library(stringr)
+  files.dir <- list.files(path = pfam.dir, pattern = "PF")
+  pfam.subset <- str_match(string = files.dir, pattern = "PF[0-9]+")
+  pfam.subset <- unique(pfam.subset)
+} else if (subset.method == "seq") {
+  pfam.subset <- pfam.summary[
+    # To include number of sites, uncomment the second line.
+    pfam.summary[, seqs.col] > min.seqs & pfam.summary[, seqs.col] <= max.seqs
+    #& pfam.summary[, sites.col] > min.sites & pfam.summary[, sites.col] <= max.sites
+    ,
+    pfam.col]
+  #print(pfam.subset)
+} else {
+  print("Error. Subset not set correctly.")
+}
 
 # Set random seed for reproducible results.
 set.seed(25)

@@ -1,4 +1,4 @@
-from Bio.Phylo.PAML import codeml
+from bio.Phylo.PAML import codeml
 import subprocess
 
 class Codeml_runner:
@@ -27,3 +27,4 @@ class Codeml_runner:
         cml.alignment = seqfile
         cml.write_ctl_file()
         self.run_bash_command('Codeml/codeml codeml.ctl')
+

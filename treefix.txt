@@ -1,0 +1,16 @@
+###========================================
+#!/bin/bash
+
+#PBS -q windfall
+#PBS -l select=1:ncpus=28:mem=168gb:pcmem=6gb
+#PBS -N treefix_parallel
+#PBS -W group_list=masel
+#PBS -l place=pack:shared
+#PBS -l walltime=01:00:00
+#PBS -j oe
+
+cd /xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/ReconciledTrees/
+module load anaconda/2019
+conda activate treefix_env
+Rscript /home/u8/anhnguyenphung/Pipeline/treefix_parallel.R
+conda deactivate treefix_env

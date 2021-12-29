@@ -17,10 +17,10 @@ library(parallel)
 library(stringr)
 
 # Global variables. Comments are added to clarify what each variable is supposed to be.
-working.dir <- "/extra/ljkosinski/Rooted/Pfam300/JTT_G/Reconciled/" # Working directory.
+working.dir <- "/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/ReconciledTrees/" # Working directory.
 pfam.col <- "PfamUID" # Name of the PfamUID column in the Pfam summary data.
-pfam.dir <- "/extra/ljkosinski/Alignments/Pfam300/" # Directory of all the pfam.fasta files.
-raxml.dir <- "/extra/ljkosinski/Rooted/Pfam300/JTT_G/" # Directory with all the rooted RAxML trees.
+pfam.dir <- "/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/Alignments/" # Directory of all the pfam.fasta files.
+raxml.dir <- "/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/RootedTrees/" # Directory with all the rooted RAxML trees.
 name.start <- "RAxML_bipartitions" # The start of each RAxML tree, before the Pfam name. E.g. "RAxML_bipartitions.PF12345.rooting.0" would have "RAxML_bipartitions" as its name.start.
 seqs.col <- "Sequences" # Name of the run time column in the Pfam summary data.
 sites.col <- "Sites" # Name of the sites columnin the Pfam summary data.
@@ -28,16 +28,16 @@ treefix.cmd <- "treefix" # Self explanatory.
 raxml.model <- "PROTGAMMAJTT" # The RAxML model to be used by treefix with -m.
 treefix.seed <- "555" # Random seed used by TreeFix with -x.
 #treefix.boot <- "100" # Number of bootstrap replicates with -b.
-smap <- "/home/u31/ljkosinski/bin/treefix-1.1.10/Pfam.smap" # Location of the species tree domain tree mapping file. This file is a mapping from the species tree to the domain tree, and is required for TreeFix to run.
-species.tree <- "/home/u31/ljkosinski/bin/treefix-1.1.10/SpeciesTree.nwk" #Location of the species tree.
-out.pfam.summary.name <- "/extra/ljkosinski/Rooted/pfam_summary_treefix_10-7-19_seqs201-300.tsv" # Name of the updated pfam summary file to save.
+smap <- "/home/u8/anhnguyenphung/Pipeline/Pfam.smap" # Location of the species tree domain tree mapping file. This file is a mapping from the species tree to the domain tree, and is required for TreeFix to run.
+species.tree <- "/home/u8/anhnguyenphung/Pipeline/SpeciesTree.nwk" #Location of the species tree.
+out.pfam.summary.name <- "/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/summary_TreeFix.tsv" # Name of the updated pfam summary file to save.
 
 # Change directory to working directory. This sets the directory to whatever directory
 # you are running TreeFix from.
 setwd(working.dir)
 
 # Load Pfam summary data, which will be updated with run times.
-load("/extra/ljkosinski/Scripts/RateShift/pfam_summary_9-13-19.RData")
+load("/xdisk/masel/mig2020/extra/ljkosinski/anhnguyenphung/Pipeline/pfam_summary_9-13-19.RData")
 
 # Function for making TreeFix alignment files, because it can't just read a fasta file.
 fasta.folder <- list.files(pfam.dir) # Directory with all the fasta files.

@@ -2,7 +2,7 @@ from Bio import Phylo
 from TreePruner import TreePruner
 from Codeml_runner import Codeml_runner
 import sys, getopt
-
+import time
 # Setting up command line arguments.
 commandLineArgs = sys.argv
 argumentList = commandLineArgs[1:]
@@ -16,7 +16,7 @@ try:
 	arguments, values = getopt.getopt(argumentList, unixOptions)
 except getopt.error as err:
 	# Output error and error code.
-	print (str(err))
+	print(str(err))
 	sys.exit(2)
 
 # Setting variables according to getopt.
@@ -263,6 +263,7 @@ class TreeCombinator:
                     with open(tree_path, 'w') as result_newick_tree_file:
                         result_newick_tree_file.write(self.eliminate_blank_space(line))
 
+
     def get_branch_length_ratio(self, clade):
         """
 
@@ -353,6 +354,7 @@ def main(domain_tree_path,  species_tree_path, seqfile_path, outfile_path, forma
     #run codeml
     cml = Codeml_runner()
     cml.run_codeml(seqfile_path, treefile_path)
+    time.sleep(50)
     tree.get_tree_from_codeml_file('Codeml/Codeml_files/codeml.file', 'Codeml/Codeml_trees/codeml.tree')
 
     #resize branch length based on codeml

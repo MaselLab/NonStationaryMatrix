@@ -31,7 +31,8 @@ as they each contain comments explaining what they do and what their settings ar
 
 3. TreeFix to reconcile a domain tree with a species tree using the treefix_parallel.R script.
 	Purpose: Improve domain tree topology by reconciling it with the TimeTree-derived species tree.
-	Input: Rooted domain tree, a matrix (same as used by RAxML, usually JTT+G), and a species tree.
+	Input: Rooted domain tree, a matrix (same as used by RAxML, usually JTT+G), the original alignment,
+	       and a species tree.
 	Output: Reconciled rooted domain tree.
 
 4. Luke Kim's scripts to date the reconciled domain tree. The main script is "TreeCombinator.py".
@@ -47,3 +48,6 @@ TO DO LIST:
 Add a script/lines of code to exclude methionines at the start of the amino acid sequence. We should not be
 inferring anything about the first methionine of the protein, and currently there is no check to see if
 the first amino acid of an alignment is the first metnionine of a protein.
+
+Determine how badly RAxML scales with number of sites. It appears to scale approximately linearly with
+number of species, but a large number of species + a large number of sites results in very slow run times.
